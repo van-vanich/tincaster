@@ -3,7 +3,7 @@ import {
   getAllAccounts,
   getByIdAccounts,
 } from "~/server/service /tincaster.service";
-import { useEffect, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
