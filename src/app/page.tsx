@@ -1,10 +1,19 @@
-'use client';
-import {getAllAccounts, getByIdAccounts} from "~/server/service /tincaster.service";
-import {useEffect, useState} from "react";
-import { Card, CardContent, CardFooter, CardHeader } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import { X, Heart, RefreshCw } from "lucide-react"
-import Image from "next/image"
+"use client";
+import {
+  getAllAccounts,
+  getByIdAccounts,
+} from "~/server/service /tincaster.service";
+import {useEffect,  useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "~/components/ui/card";
+import { Button } from "~/components/ui/button";
+import { X, Heart, RefreshCw } from "lucide-react";
+import Image from "next/image";
+import { sdk } from "@farcaster/frame-sdk";
 
 interface Account {
   id: number;
@@ -15,12 +24,23 @@ interface Account {
 }
 
 export default function HomePage() {
+  useEffect(() => {
+    const ready = async () => {
+      await sdk.actions.ready();
+    };
+    ready()
+      .then(() => {
+        console.log("Data");
+      })
+      .catch();
+  }, []);
+
   const getAllAccountsHandler = async () => {
     const res = await getAllAccounts();
     console.log(res);
     return res;
-  }
-  const getAccountByIdHandler= async (id: number) => {
+  };
+  const getAccountByIdHandler = async (id: number) => {
     const res = await getByIdAccounts(id);
     console.log(res);
     return res;
@@ -37,32 +57,32 @@ export default function HomePage() {
   }, []);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [allProfilesViewed, setAllProfilesViewed] = useState<boolean>(false)
+  const [allProfilesViewed, setAllProfilesViewed] = useState<boolean>(false);
 
   const handleSkip = () => {
     if (currentIndex < profiles.length - 1) {
-      setCurrentIndex(currentIndex + 1)
+      setCurrentIndex(currentIndex + 1);
     } else {
-      setAllProfilesViewed(true)
+      setAllProfilesViewed(true);
     }
-  }
+  };
 
   const handleLike = () => {
     if (currentIndex < profiles.length - 1) {
-      setCurrentIndex(currentIndex + 1)
+      setCurrentIndex(currentIndex + 1);
     } else {
-      setAllProfilesViewed(true)
+      setAllProfilesViewed(true);
     }
-  }
+  };
 
   const handleReset = () => {
-    setCurrentIndex(0)
-    setAllProfilesViewed(false)
-  }
+    setCurrentIndex(0);
+    setAllProfilesViewed(false);
+  };
 
   return (
-      <div className="flex flex-col items-center min-h-screen p-4 bg-gray-50">
-        <h1 className="text-2xl font-bold mb-6">Profile Matcher</h1>
+    <div className="flex min-h-screen flex-col items-center bg-gray-50 p-4">
+      <h1 className="mb-6 text-2xl font-bold">Profile Matcher</h1>
 
         <div className="w-full max-w-md">
           {!allProfilesViewed && currentIndex < profiles.length ? (
