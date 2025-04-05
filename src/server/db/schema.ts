@@ -22,7 +22,8 @@ export const account = createTable(
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     description: d.varchar({length: 512}),
-    url: d.varchar({length: 256})
+    url: d.varchar({length: 256}),
+    image: d.varchar({length: 256}),
 
   }),
   (t) => [index("name_idx").on(t.name)],
