@@ -24,6 +24,7 @@ export const account = createTable(
     description: d.varchar({length: 512}),
     url: d.varchar({length: 256}),
     image: d.varchar({length: 256}),
+    fib: d.integer(),
 
   }),
   (t) => [index("name_idx").on(t.name)],
