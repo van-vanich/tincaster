@@ -20,7 +20,8 @@ export const useFollow = () => {
         signMessageHash: farcasterSigner.signFarcasterMessage,
       },
     });
-    return followCreatorMutation.mutate({
+
+    return await followCreatorMutation.mutateAsync({
       follow: {
         targetFid: args.fid,
       },
