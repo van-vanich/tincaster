@@ -1,6 +1,6 @@
-import { action } from './action'
-import * as Actions from 'fhub/Actions'
-import { useMutation, type UseMutationOptions } from '@tanstack/react-query'
+import { action } from "./action";
+import * as Actions from "fhub/Actions";
+import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 
 export function useFollowCreateMutation({
   mutation = {},
@@ -11,14 +11,14 @@ export function useFollowCreateMutation({
         Actions.Follow.create.ErrorType,
         Exclude<Actions.Follow.create.ParametersType, { message: unknown }>
       >
-    | undefined
+    | undefined;
 } = {}) {
   return useMutation({
     ...mutation,
-    mutationKey: ['Follow.create'],
+    mutationKey: ["Follow.create"],
     mutationFn: async (args) => {
-      const message = await Actions.Follow.createPreconstruct(args)
-      return action({ message })
+      const message = await Actions.Follow.createPreconstruct(args);
+      return action({ message });
     },
-  })
+  });
 }
