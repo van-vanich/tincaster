@@ -8,7 +8,7 @@ import "./src/env.js";
 const config = {
     images: {
         // Add domains that you want to allow images from
-        domains: ['imagedelivery.net'], // Add your specific domains here
+        domains: ['imagedelivery.net', 'i.imgur.com', 'pbs.twimg.com'], // Add your specific domains here
     },
     // Check the SKIP_ENV_VALIDATION variable to skip validation if needed
     env: {

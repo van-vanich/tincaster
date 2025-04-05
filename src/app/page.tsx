@@ -1,57 +1,40 @@
 'use client';
 import {getAllAccounts, getByIdAccounts} from "~/server/service /tincaster.service";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import { X, Heart, RefreshCw } from "lucide-react"
 import Image from "next/image"
 
+interface Account {
+  id: number;
+  name: string;
+  createdAt: Date;
+  description: string | null;
+  url: string | null;
+}
+
 export default function HomePage() {
   const getAllAccountsHandler = async () => {
     const res = await getAllAccounts();
     console.log(res);
+    return res;
   }
   const getAccountByIdHandler= async (id: number) => {
     const res = await getByIdAccounts(id);
     console.log(res);
+    return res;
   }
-  const profiles = [
-    {
-      id: 1,
-      name: "Alex Johnson",
-      bio: "Software developer who loves hiking and photography",
-      image: "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/9c3707aa-60af-41e5-70f8-be31c6ded900/rectcrop3",
-    },
-    {
-      id: 2,
-      name: "Sam Taylor",
-      bio: "Graphic designer with a passion for travel and coffee",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-    {
-      id: 3,
-      name: "Jordan Smith",
-      bio: "Marketing specialist who enjoys cooking and reading",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-    {
-      id: 4,
-      name: "Casey Brown",
-      bio: "Fitness instructor who loves music and outdoor activities",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-    {
-      id: 5,
-      name: "Riley Wilson",
-      bio: "Teacher who enjoys painting and playing guitar",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-  ]
 
-  // useEffect(async () => {
-  //   const all = await getAllAccounts();
-  //   setProfiles(all);
-  // }, []);
+  const [profiles, setProfiles] = useState<Account[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getAllAccountsHandler();
+      setProfiles(res)
+    };
+
+    fetchData();
+  }, []);
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [allProfilesViewed, setAllProfilesViewed] = useState<boolean>(false)
@@ -101,7 +84,7 @@ export default function HomePage() {
                   </div>
                 </CardHeader>
                 <CardContent className="text-center">
-                  <p className="text-gray-600">{profiles[currentIndex].bio}</p>
+                  <p className="text-gray-600">{profiles[currentIndex].description}</p>
                 </CardContent>
                 <CardFooter className="flex justify-center gap-4 pt-2">
                   <Button
