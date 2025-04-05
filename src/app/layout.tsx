@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import { PProvider } from "~/providers";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -38,7 +39,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>{children}</body>
+      <PProvider>
+        <body>{children}</body>
+      </PProvider>
     </html>
   );
 }

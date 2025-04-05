@@ -14,6 +14,8 @@ import { Button } from "~/components/ui/button";
 import { X, Heart, RefreshCw } from "lucide-react";
 import Image from "next/image";
 import { sdk } from "@farcaster/frame-sdk";
+import { usePrivy } from "@privy-io/react-auth";
+import { useFollow } from "~/hooks/use-follow";
 
 interface Account {
   id: number;
@@ -24,6 +26,8 @@ interface Account {
 }
 
 export default function HomePage() {
+  const privy = usePrivy();
+
   useEffect(() => {
     const ready = async () => {
       await sdk.actions.ready();
@@ -80,9 +84,29 @@ export default function HomePage() {
     setAllProfilesViewed(false);
   };
 
+  const follow = useFollow();
+  console.log(follow);
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-50 p-4">
       <h1 className="mb-6 text-2xl font-bold">Profile Matcher</h1>
+      <Button
+        onClick={() => {
+          follow.handleFollow({ fid: 300898n });
+        }}
+      >
+        Follow
+      </Button>
+      
+      {!privy.authenticated ? (
+        <Button onClick={privy.login} className="mb-6" variant="outline">
+          Connect Wallet
+        </Button>
+      ) : (
+        <Button onClick={privy.logout} className="mb-6" variant="outline">
+          Disconnect Wallet ({privy.user?.wallet?.address?.slice(0, 6)}...
+          {privy.user?.wallet?.address?.slice(-4)})
+        </Button>
+      )}
 
       <div className="w-full max-w-md">
         {!allProfilesViewed && currentIndex < profiles.length ? (
