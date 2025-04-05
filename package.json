@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "vladik": "fhub init",
+    "vladik:generate": "fhub generate",
     "build": "next build",
     "check": "next lint && tsc --noEmit",
     "db:generate": "drizzle-kit generate",
@@ -22,6 +24,8 @@
   "dependencies": {
     "@farcaster/frame-sdk": "^0.0.32",
     "@hookform/resolvers": "^5.0.1",
+    "@privy-io/react-auth": "^2.8.2",
+    "@privy-io/wagmi": "^1.0.3",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-aspect-ratio": "^1.1.2",
@@ -55,6 +59,7 @@
     "date-fns": "^3.6.0",
     "drizzle-orm": "^0.41.0",
     "embla-carousel-react": "^8.6.0",
+    "fhub": "^0.0.0-canary-20250211205711",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.487.0",
     "next": "^15.2.3",
