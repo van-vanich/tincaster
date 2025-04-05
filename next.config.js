@@ -6,7 +6,7 @@ import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
-  images: { domains: ["imagedelivery.net"] },
+  images: { domains: ["imagedelivery.net", "i.imgur.com", "pbs.twimg.com"] },
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
   env: {
